@@ -52,6 +52,20 @@ order by avg_rentalrate desc;
    Show actor_id, first_name, last_name and the number of films.
 */
 
+select ac.actor_id,
+ac.first_name,
+ac.last_name,
+count(ff.film_id) as no_of_films
+from actor ac left join film_actor fa
+on ac.actor_id=fa.actor_id
+left join film ff
+on fa.film_id=ff.film_id
+group by ac.actor_id,
+ac.first_name,
+ac.last_name
+having COUNT(ff.film_id)>20 
+order by COUNT(ff.film_id) desc; 
+
 /*
 5. Using a CTE or subquery, find customers who have rented more films
    than the average number of rentals per customer.

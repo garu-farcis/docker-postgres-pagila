@@ -168,7 +168,16 @@ ss.first_name,ss.last_name
 order by sum(pp.amount) desc;
 
 /*
-10. Using a window function, rank films within each category by rental_rate
+10. rank films within each category by rental_rate
     (highest rate = rank 1).
     Show category name, film title, rental_rate and rank.
 */
+
+select cc.name as cat_name,
+ff.title as film_title,
+ff.rental_rate,
+rank() over (partition by cc.category_id order by ff.rental_rate desc) as film_ranking
+from film ff left join film_category fc
+on ff.film_id=fc.film_id
+left join category cc
+on cc.category_id=fc.category_id;

@@ -12,3 +12,78 @@ from customer cu left join payment pay
 on cu.customer_id=pay.customer_id
 group by cu.customer_id,cu.first_name,cu.last_name
 order by total_amount DESC limit 5;
+
+/*
+2. List all films that have never been rented.
+   Show film_id and title.
+*/
+
+select ff.film_id,
+ff.title,
+re.rental_date
+from film ff left join inventory inv
+on ff.film_id=inv.film_id
+left join rental re
+on inv.inventory_id=re.inventory_id
+where re.rental_date is null;
+
+/*
+3. For each film category, calculate:
+   - number of films
+   - average rental rate
+   - average length
+   Order by average rental rate descending.
+*/
+select cc.category_id,
+    cc.name AS category,
+count(ff.film_id) as no_of_films,
+avg(ff.rental_rate) as avg_rentalrate,
+avg(ff.length) as avg_len
+from film ff left join film_category fc
+on ff.film_id=fc.film_id
+left join category cc
+on fc.category_id=cc.category_id
+group by cc.category_id,cc.name
+order by avg_rentalrate desc;
+
+
+/*
+4. Find actors who have appeared in more than 20 films.
+   Show actor_id, first_name, last_name and the number of films.
+*/
+
+/*
+5. Using a CTE or subquery, find customers who have rented more films
+   than the average number of rentals per customer.
+   Show customer_id, first_name, last_name and their rental_count.
+*/
+
+/*
+6. Find the most popular film category in each store
+   (based on number of rentals).
+   Show store_id, category name and rental_count.
+*/
+
+/*
+7. Calculate the running total of payments for each customer
+   ordered by payment_date (use a window function).
+   Show customer_id, payment_id, amount, payment_date and running_total.
+*/
+
+/*
+8. Find films that have the same length as at least one other film,
+   but different titles.
+   Show title and length, ordered by length.
+*/
+
+/*
+9. List staff members and the total amount of payments they processed.
+   Include staff who have processed $0 as well (use LEFT JOIN).
+   Show staff_id, first_name, last_name and total_processed.
+*/
+
+/*
+10. Using a window function, rank films within each category by rental_rate
+    (highest rate = rank 1).
+    Show category name, film title, rental_rate and rank.
+*/

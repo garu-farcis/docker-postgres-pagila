@@ -94,12 +94,44 @@ order by ai.count_rentals desc;
    (based on number of rentals).
    Show store_id, category name and rental_count.
 */
+with cat_rentals as (
+select ss.store_id,
+cc.name as category_name,
+count(re.rental_id) as rental_count
+from film_category fc left join category cc
+on fc.category_id=cc.category_id
+left join inventory inv
+on fc.film_id =inv.film_id
+left join rental re
+on inv.inventory_id =re.inventory_id
+left join store ss
+on inv.store_id=ss.store_id
+group by ss.store_id,cc.name
+)
+SELECT
+    store_id,
+    category_name,
+    rental_count
+FROM (
+    SELECT
+        store_id,
+        category_name,
+        rental_count,
+        RANK() OVER (
+            PARTITION BY store_id
+            ORDER BY rental_count DESC
+        ) AS category_rank
+    FROM cat_rentals
+) x
+WHERE category_rank = 1;
 
 /*
 7. Calculate the running total of payments for each customer
    ordered by payment_date (use a window function).
    Show customer_id, payment_id, amount, payment_date and running_total.
 */
+
+
 
 /*
 8. Find films that have the same length as at least one other film,

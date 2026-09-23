@@ -155,9 +155,17 @@ on fl.film_id<>ff.film_key and fl.length=ff.film_length
 order by fl.length desc;
 /*
 9. List staff members and the total amount of payments they processed.
-   Include staff who have processed $0 as well (use LEFT JOIN).
+   Include staff who have processed $0 as well.
    Show staff_id, first_name, last_name and total_processed.
 */
+select ss.staff_id,
+ss.first_name,ss.last_name,
+coalesce(sum(pp.amount),0) as total_processed
+from staff ss left join payment pp
+on ss.staff_id=pp.staff_id
+group by ss.staff_id,
+ss.first_name,ss.last_name
+order by sum(pp.amount) desc;
 
 /*
 10. Using a window function, rank films within each category by rental_rate

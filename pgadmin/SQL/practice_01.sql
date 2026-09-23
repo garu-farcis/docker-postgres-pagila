@@ -143,7 +143,16 @@ on cc.customer_id=pp.customer_id
    but different titles.
    Show title and length, ordered by length.
 */
-
+with film_info as (
+    select ff.length as film_length,
+    ff.film_id as film_key,
+    ff.title as film_title
+    from film ff
+)
+select ff.film_key,fl.length,ff.film_title
+from film fl left join film_info ff
+on fl.film_id<>ff.film_key and fl.length=ff.film_length
+order by fl.length desc;
 /*
 9. List staff members and the total amount of payments they processed.
    Include staff who have processed $0 as well (use LEFT JOIN).

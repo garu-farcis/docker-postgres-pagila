@@ -72,6 +72,23 @@ order by COUNT(ff.film_id) desc;
    Show customer_id, first_name, last_name and their rental_count.
 */
 
+with avg_info as (
+    select count(re.rental_id) as count_rentals,
+    cu.customer_id as customer_key
+    from customer cu left join rental re
+    on cu.customer_id=re.customer_id
+    group by cu.customer_id
+)
+select cc.customer_id,
+cc.first_name,
+cc.last_name,
+ai.count_rentals
+from avg_info ai inner join customer cc
+on ai.customer_key=cc.customer_id
+group by cc.customer_id
+having ai.count_rentals > (select avg(ai.count_rentals) from avg_info ai)
+order by ai.count_rentals desc;
+
 /*
 6. Find the most popular film category in each store
    (based on number of rentals).

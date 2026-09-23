@@ -130,7 +130,12 @@ WHERE category_rank = 1;
    ordered by payment_date (use a window function).
    Show customer_id, payment_id, amount, payment_date and running_total.
 */
-
+select cc.customer_id,
+pp.payment_id, pp.amount, pp.payment_date,
+sum(pp.amount) over (partition by cc.customer_id order by pp.payment_date desc rows between unbounded preceding and current row ) as running_total
+from customer cc left join payment pp
+on cc.customer_id=pp.customer_id
+;
 
 
 /*

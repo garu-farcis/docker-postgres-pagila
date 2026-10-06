@@ -1,0 +1,5 @@
+/*
+1. Find the top 3 most rented films in each category.
+   Show category name, film title, and rental_count.
+   (Hint: use RANK() or DENSE_RANK() with PARTITION BY)
+*/

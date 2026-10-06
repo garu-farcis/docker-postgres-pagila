@@ -18,5 +18,5 @@ with monthly_total as (
 )
 
 select total,year_months,previous_month_tot,
-round((total-previous_month_tot/previous_month_tot)*100,2) as growth_percentage
+round(((total-previous_month_tot)/previous_month_tot)*100,2) as growth_percentage
 from prev_month;

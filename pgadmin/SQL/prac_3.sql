@@ -13,10 +13,11 @@ with monthly_total as (
     select mt.total,
     mt.pay_month,
     concat(mt.years,' ',mt.pay_month) as year_months,
-    lag(mt.total) over (order by (mt.years,mt.pay_month) ) as previous_month_tot
+    lag(mt.total) over (order by mt.years,mt.pay_month ) as previous_month_tot
     from monthly_total mt
 )
 
 select total,year_months,previous_month_tot,
-round(((total-previous_month_tot)/previous_month_tot)*100,2) as growth_percentage
+round(((total - previous_month_tot) / previous_month_tot) * 100,
+        2) as growth_percentage
 from prev_month;

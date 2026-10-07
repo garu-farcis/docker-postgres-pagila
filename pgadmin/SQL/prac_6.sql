@@ -4,3 +4,6 @@
    and who have also rented more than 20 films.
    Show customer_id, full name, city, total_spent, and rental_count.
 */
+with high_spenders as (
+    select concat
+)

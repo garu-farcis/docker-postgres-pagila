@@ -27,6 +27,15 @@ count_rentals as (
     select cc.full_name,
     cc.total_spent,
     cc.avg_apent,
-     count(re.rental_id) as rental_count
-    from
+    cc.city,
+    count(re.rental_id) as rental_count
+    from spending_in_city cc left join rental re
+    on cc.customer_key=re.customer_id
+    left join inventory inv
+    on re.inventory_id=inv.inventory_id
+    group by cc.customer_key,cc.full_name
+    having count(inv.film_id)>=20
+
 )
+
+select * from count_rentals;

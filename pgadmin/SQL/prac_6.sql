@@ -24,5 +24,9 @@ spending_in_city as (
 
 ),
 count_rentals as (
-    select 
+    select cc.full_name,
+    cc.total_spent,
+    cc.avg_apent,
+     count(re.rental_id) as rental_count
+    from
 )

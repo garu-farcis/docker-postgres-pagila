@@ -5,5 +5,8 @@
    Show customer_id, full name, city, total_spent, and rental_count.
 */
 with high_spenders as (
-    select concat
+    select concat(cc.first_name,' ',cc.last_name) as full_name,
+    cc.customer_id as customer_key,
+    sum(pay.amount) as total_spent
+    
 )

@@ -4,5 +4,9 @@
 */
 
 with recursive show_hierar as (
-    
+    select ss.staff_id as ids,
+    concat(ss.first_name,' ',ss.last_name) as full_name,
+    st.manager_id
+    from staff ss left join store st
+    on ss.store_id=st.store_id
 )

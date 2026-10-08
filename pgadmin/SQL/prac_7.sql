@@ -4,17 +4,35 @@
 */
 
 with recursive show_hierar as (
-    select ss.staff_id as ids,
-    concat(ss.first_name,' ',ss.last_name) as full_name,
-    'staff' as hierarchy_
+    -- anchor: each staff member
+    select
+        ss.staff_id,
+        concat(ss.first_name, ' ', ss.last_name) as staff_name,
+        st.manager_staff_id as manager_id,
+        concat(mm.first_name, ' ', mm.last_name) as manager_name,
+        1 as level
     from staff ss
+    left join store st
+        on ss.store_id = st.store_id
+    left join staff mm
+        on st.manager_staff_id = mm.staff_id
 
-    union all 
+    union all
 
-    select sh.ids as manager_id,
-    sh.full_name as manager_name,
-    'manager' as hierarchy_
-    from show_hierar sh left join store st
-    on sh.ids=st.manager_staff_id
+    -- recursive step
+    select
+        sh.staff_id,
+        sh.staff_name,
+        sh.manager_id,
+        sh.manager_name,
+        sh.level + 1
+    from show_hierar sh
+    where sh.manager_id is not null
 )
-select * from show_hierar;
+select distinct
+    staff_id,
+    staff_name,
+    manager_id,
+    manager_name,
+    level
+from show_hierar;

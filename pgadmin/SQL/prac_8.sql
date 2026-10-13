@@ -7,3 +7,7 @@ with recursive staff_hierarchy as (
         s.staff_id,
         s.staff_name,
         s.manager_id,
+        m.staff_name as manager_name,
+        1 as level
+    from staff s
+    left join staff m

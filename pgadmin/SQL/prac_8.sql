@@ -14,3 +14,7 @@ with recursive staff_hierarchy as (
     on s.manager_id = m.staff_id
 
     union all
+    select
+        sh.staff_id,
+        sh.staff_name,
+        m.manager_id,

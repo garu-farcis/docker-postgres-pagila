@@ -25,3 +25,12 @@ with recursive staff_hierarchy as (
         on sh.manager_id = m.staff_id
     left join staff sm
         on m.manager_id = sm.staff_id
+        )
+select
+    staff_id,
+    staff_name,
+    manager_id,
+    manager_name,
+    level
+from staff_hierarchy
+order by staff_id, level;

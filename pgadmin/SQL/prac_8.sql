@@ -18,3 +18,10 @@ with recursive staff_hierarchy as (
         sh.staff_id,
         sh.staff_name,
         m.manager_id,
+        sm.staff_name as manager_name,
+        sh.level + 1
+    from staff_hierarchy sh
+    join staff m
+        on sh.manager_id = m.staff_id
+    left join staff sm
+        on m.manager_id = sm.staff_id

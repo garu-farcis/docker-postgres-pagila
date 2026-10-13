@@ -11,3 +11,6 @@ with recursive staff_hierarchy as (
         1 as level
     from staff s
     left join staff m
+    on s.manager_id = m.staff_id
+
+    union all

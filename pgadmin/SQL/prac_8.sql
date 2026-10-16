@@ -31,6 +31,7 @@ select
     staff_name,
     manager_id,
     manager_name,
+    
     level
 from staff_hierarchy
 order by staff_id,  level

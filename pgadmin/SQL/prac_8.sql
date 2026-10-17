@@ -22,7 +22,7 @@ with recursive staff_hierarchy as (
         sh.level + 1
     from staff_hierarchy sh
     join staff m
-    
+
         on sh.manager_id = m.staff_id
     left join staff sm
 
@@ -31,6 +31,7 @@ with recursive staff_hierarchy as (
 select
     staff_id,
     staff_name,
+    
     manager_id,
     manager_name,
     

@@ -10,7 +10,7 @@ with recursive show_hierar as (
         concat(ss.first_name, ' ', ss.last_name) as staff_name,
         st.manager_staff_id as manager_id,
         concat(mm.first_name, ' ',
-         mm.last_name) as manager_name,
+        mm.last_name) as manager_name,
         1 as level
     from staff ss
     left join store st

@@ -3,11 +3,7 @@
    Show customer_id, first_name, last_name.
 */
 
-with al_cat as (
-   select distinct(cc.name) as unique_cats,
-   (cc.category_id) as cat_id
-   from category cc
-),
+with 
 cust_who_rent as (
    select cu.customer_id, cu.first_name, cu.last_name
    from customer cu left join rental re

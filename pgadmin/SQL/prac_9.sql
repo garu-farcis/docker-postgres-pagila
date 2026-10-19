@@ -17,17 +17,7 @@ cust_who_rent as (
    left join film_category fc
    on inv.film_id =fc.film_id
    where re.rental_date is not null 
-   and cu.customer_id in (
-    select cu.customer_id
-    from customer cu left join rental re
-   on cu.customer_id=re.customer_id
-   left join inventory inv 
-   on re.inventory_id=inv.inventory_id
-   left join film_category fc
-   on inv.film_id =fc.film_id
-   left join al_cat cc
-    on cc.cat_id=cu.category_id
-   where cu.category_id =cc.unique_cats
-   )
-)
+    group by cu.customer_id, cu.first_name, cu.last_name
+    having count(distinct(fc.category_id))=(select distinct count(*) from category))
+
 select * from cust_who_rent;

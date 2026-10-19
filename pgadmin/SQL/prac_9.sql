@@ -9,7 +9,7 @@ with al_cat as (
    from category cc
 ),
 cust_who_rent as (
-   select cu.customer_id, cu.first_name, cu.last_name,fc.category_id
+   select cu.customer_id, cu.first_name, cu.last_name
    from customer cu left join rental re
    on cu.customer_id=re.customer_id
    left join inventory inv 

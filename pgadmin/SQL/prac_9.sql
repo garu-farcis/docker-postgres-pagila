@@ -10,5 +10,6 @@ with al_cat as (
 ),
 cust_who_rent as (
    select cu.customer_id, cu.first_name, cu.last_name,cc.unique_cats
-   from 
+   from customer cu left join rental re
+   on cu.customer_id=re.customer_id
 )
